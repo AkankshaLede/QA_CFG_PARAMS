@@ -30,13 +30,16 @@ def validate_config(actual_cfg, expected_cfg, file1_cfg_path, file2_cfg_path):
                 actual_value = actual_cfg[section].get(key)
                 if actual_value is None:
                     mismatches.append(f"{key} is missing in section [{section}] {file1_cfg_path}")
+                    flag = 1  # Set flag on missing key
                 elif actual_value != expected_value:
                     mismatches.append(f"{key} in section [{section}] is {actual_value}, expected {expected_value}")
+                    flag = 1  # Set flag on value mismatch
         else:
             # skip if the entire section has ONLY `SHOULD_NOT_BE_PRESENT` fields
             if all(value == "SHOULD_NOT_BE_PRESENT" for value in expected_params.values()):
                 continue
             mismatches.append(f"Section [{section}] is missing in {file1_cfg_path}")
+            flag = 1  # Set flag on missing section
     
     return mismatches, flag
 
