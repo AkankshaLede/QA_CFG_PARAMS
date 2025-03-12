@@ -1,9 +1,10 @@
 name: Code Correction
 
+# this means the workflow will run when you nedd to push the code 
 on:
   push:
     branches:
-      - branch1
+      - main
 
 jobs:
   format_code:
@@ -48,7 +49,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.email "akankshalede2gmail.com"
+          git config --global user.email "akankshalede@gmail.com"
           git config --global user.name "AkankshaLede"
           git diff --quiet || (git add . && git commit -m "Auto-corrected Python files" && sleep 10 && git push) 
           
